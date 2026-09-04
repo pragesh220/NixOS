@@ -122,15 +122,50 @@
       cleanup = "sudo nix-collect-garbage -d";
     };
   };
+    # Set Fish as default shell for pragesh220
+    users.users."pragesh220".shell = pkgs.fish;  
+  nixpkgs.overlays = [
+    (final: prev: {
+      linuxPackages = prev.linuxPackages.extend (lfinal: lprev: {
+        nvidia_x11 = lprev.nvidia_x11.overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            if grep -q 'strncpy(buf, current->comm, len - 1);' kernel-open/nvidia/os-interface.c; then
+              sed -i 's/strncpy(buf, current->comm, len - 1);/strscpy(buf, current->comm, len);/' \
+                kernel-open/nvidia/os-interface.c
+            fi
+          '';
+        });
+      });
+    })
+  ];
 
+  # Tell X11 / Wayland to use the NVIDIA driver
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  # Configure NVIDIA driver options
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    modesetting.enable = true;
+    open = false;
+    powerManagement.enable = true;
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:2:0:0";
+    };
+  };
    # Enable graphics driver support
     hardware.graphics = {
       enable = true;
       enable32Bit = true; # Required for 32-bit Wine/Steam games
     }; 
 
-  # Set Fish as default shell for pragesh220
-  users.users."pragesh220".shell = pkgs.fish;
+
 
   # Enable mate-polkit 
   systemd.user.services.polkit-mate-authentication-agent-1 = {
