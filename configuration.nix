@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/fish.nix
+      ./modules/nvidia.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -71,89 +73,6 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   }; 
-
-
-   # Enable Fish shell globally
-  programs.fish = {
-    enable = true;
-
-    interactiveShellInit = ''
-      # Disable greeting
-      set -g fish_greeting ""
-
-      # Initialize starship prompt
-      starship init fish | source
-    '';
-
-    shellAliases = {
-      # Replace ls with eza
-      ls = "eza -al --color=always --group-directories-first --icons=always";
-      la = "eza -a --color=always --group-directories-first --icons=always";
-      ll = "eza -l --color=always --group-directories-first --icons=always";
-      lt = "eza -aT --color=always --group-directories-first --icons=always";
-
-      # Navigation shortcuts
-      ".." = "cd ..";
-      "..." = "cd ../..";
-      "...." = "cd ../../..";
-      "....." = "cd ../../../..";
-      "......" = "cd ../ proposal/../../..";
-
-      # Common utilities
-      tarnow = "tar -acf ";
-      untar = "tar -zxvf ";
-      wget = "wget -c ";
-      psmem = "ps auxf | sort -nr -k 4";
-      psmem10 = "ps auxf | sort -nr -k 4 | head -10";
-      dir = "dir --color=auto";
-      vdir = "vdir --color=auto";
-      grep = "grep --color=auto";
-      fgrep = "fgrep --color=auto";
-      egrep = "egrep --color=auto";
-      hw = "hwinfo --short";
-      tb = "nc termbin.com 9999";
-      jctl = "journalctl -p 3 -xb";
-      cat = "bat";
-      v = "nvim";
-      vim = "nvim";
-
-      # NixOS equivalents for system updates and cleanup
-      update = "sudo nixos-rebuild switch --flake .#nixos";
-      cleanup = "sudo nix-collect-garbage -d";
-    };
-  };
-    # Set Fish as default shell for pragesh220
-    users.users."pragesh220".shell = pkgs.fish;  
-
-  # Tell X11 / Wayland to use the NVIDIA driver
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Configure NVIDIA driver options
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-    modesetting.enable = true;
-    open = false;
-    powerManagement.enable = true;
-
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:2:0:0";
-    };
-  };
-   # Enable graphics driver support
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true; # Required for 32-bit Wine/Steam games
-      extraPackages32 = [
-        config.hardware.nvidia.package.lib32
-      ];
-    }; 
-
 
 
   # Enable mate-polkit 
@@ -250,9 +169,13 @@
     zip
     xdg-user-dirs
     xdg-utils
+    kdePackages.filelight
+    kdePackages.kdenlive
+
 
    #THEMES AND CUSTOMIZATIONS
     nwg-look
+    gimp
 
    
     # Gaming Packages
