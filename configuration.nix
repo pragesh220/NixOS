@@ -124,20 +124,6 @@
   };
     # Set Fish as default shell for pragesh220
     users.users."pragesh220".shell = pkgs.fish;  
-  nixpkgs.overlays = [
-    (final: prev: {
-      linuxPackages = prev.linuxPackages.extend (lfinal: lprev: {
-        nvidia_x11 = lprev.nvidia_x11.overrideAttrs (old: {
-          postPatch = (old.postPatch or "") + ''
-            if grep -q 'strncpy(buf, current->comm, len - 1);' kernel-open/nvidia/os-interface.c; then
-              sed -i 's/strncpy(buf, current->comm, len - 1);/strscpy(buf, current->comm, len);/' \
-                kernel-open/nvidia/os-interface.c
-            fi
-          '';
-        });
-      });
-    })
-  ];
 
   # Tell X11 / Wayland to use the NVIDIA driver
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -163,6 +149,9 @@
     hardware.graphics = {
       enable = true;
       enable32Bit = true; # Required for 32-bit Wine/Steam games
+      extraPackages32 = [
+        config.hardware.nvidia.package.lib32
+      ];
     }; 
 
 
@@ -182,6 +171,8 @@
 
     };
   };
+  
+  programs.gamemode.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Kathmandu";
@@ -209,7 +200,7 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
    environment.systemPackages = with pkgs; [
-       neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
     curl
@@ -226,6 +217,7 @@
     vlc
     pciutils
     noctalia
+    motrix-next
 
     # Programming stuffs
     gcc 
@@ -269,7 +261,6 @@
     wineWow64Packages.stable
     winetricks
     lutris
-    gamemode
     protonup-qt
     gamescope
 
