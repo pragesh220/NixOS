@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./modules/fish.nix
       ./modules/nvidia.nix
+      ./modules/ly.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -57,8 +58,6 @@
   # Enable Fstrim
   services.fstrim.enable = true;
 
-  # Enable Ly login manager
-  services.displayManager.ly.enable = true;
  
   # File Manger (Thunar and plugins)
   programs.thunar.enable = true;
