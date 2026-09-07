@@ -169,13 +169,10 @@
     xdg-user-dirs
     xdg-utils
     kdePackages.filelight
-    kdePackages.kdenlive
-
 
    #THEMES AND CUSTOMIZATIONS
     nwg-look
     gimp
-
    
     # Gaming Packages
     mangohud
