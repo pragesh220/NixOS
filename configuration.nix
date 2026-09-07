@@ -11,6 +11,7 @@
       ./modules/fish.nix
       ./modules/nvidia.nix
       ./modules/ly.nix
+      ./modules/performance.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -90,7 +91,6 @@
     };
   };
   
-  programs.gamemode.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Kathmandu";
@@ -174,15 +174,6 @@
     nwg-look
     gimp
    
-    # Gaming Packages
-    mangohud
-    steam-run
-    wineWow64Packages.stable
-    winetricks
-    lutris
-    protonup-qt
-    gamescope
-
    ];
  
   fonts.packages = with pkgs; [
