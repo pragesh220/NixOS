@@ -204,8 +204,18 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  
+# Auto Cleanup
+nix = {
+  gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+  settings.auto-optimise-store = true;
+}; 
 
-  # List services that you want to enable:
+ # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
