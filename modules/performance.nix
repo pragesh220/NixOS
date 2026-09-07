@@ -23,7 +23,6 @@
   environment.systemPackages = with pkgs; [
     mangohud
     protonup-qt
-    scx
     steam-run
     wineWow64Packages.stable
     winetricks
