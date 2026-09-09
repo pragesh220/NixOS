@@ -157,6 +157,7 @@
     mako
     bat
     cmatrix
+    zathura   # Terminal_PDF_Viewer
 
 
     #polkit

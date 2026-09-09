@@ -4,7 +4,7 @@
   # Kernel Sysctl Optimizations
   boot.kernel.sysctl = {
     "vm.swappiness" = 10;
-    "vm.max_map_count" = 2147483642;
+    "vm.max_map_count" = 1048576;
   };
 
   # Compress RAM before swapping to disk
