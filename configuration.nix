@@ -125,7 +125,6 @@
     curl
     fastfetch
     brave
-    kdePackages.kate
     btop
     cava
     libreoffice
@@ -150,7 +149,6 @@
     rustfmt
     clippy
     xwayland-satellite # xwayland support
-    qutebrowser
     zed-editor
 
     # Terminal Stuffs
