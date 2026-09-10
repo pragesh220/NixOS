@@ -7,17 +7,17 @@
     package = pkgs.ollama-cuda;
   };
 
-  # 2. Enable Open WebUI
-  services.open-webui = {
-    enable = true;
-    port = 8080;
-    environment = {
-      OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
-      ANONYMIZED_TELEMETRY = "False";
-      DO_NOT_TRACK = "True";
-      SCARF_NO_ANALYTICS = "True";
-    };
-  };
+#   # 2. Enable Open WebUI
+#   services.open-webui = {
+#     enable = false;
+#     port = 8080;
+#     environment = {
+#       OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+#       ANONYMIZED_TELEMETRY = "False";
+#       DO_NOT_TRACK = "True";
+#       SCARF_NO_ANALYTICS = "True";
+#     };
+#   };
 
   # 3. Add Stable Diffusion FHS environment runner
   environment.systemPackages = [
