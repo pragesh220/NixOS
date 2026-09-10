@@ -12,6 +12,7 @@
       ./modules/nvidia.nix
       ./modules/ly.nix
       ./modules/performance.nix
+      ./modules/ai.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -149,6 +150,8 @@
     rustfmt
     clippy
     xwayland-satellite # xwayland support
+    qutebrowser
+    zed-editor
 
     # Terminal Stuffs
     kitty
@@ -206,6 +209,12 @@ nix = {
   };
   settings.auto-optimise-store = true;
 }; 
+
+# Cuda binary cache
+nix.settings = {
+  substituters = [ "https://cache.nixos-cuda.org" ];
+  trusted-public-keys = [ "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" ];
+};
 
  # List services that you want to enable:
 
