@@ -2,10 +2,10 @@
   description = "Pragesh's NixOS Flake Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "git+https://github.com/nixos/nixpkgs?ref=nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "git+https://github.com/nix-community/home-manager?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
