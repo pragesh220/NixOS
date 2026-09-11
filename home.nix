@@ -13,7 +13,7 @@
     papirus-icon-theme
     papirus-folders
     bibata-cursors
-    flat-remix-icom-theme
+    flat-remix-icon-theme
   ];
 
   home.pointerCursor = {

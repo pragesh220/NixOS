@@ -171,6 +171,7 @@
     xdg-user-dirs
     xdg-utils
     kdePackages.filelight
+    yazi
 
    #THEMES AND CUSTOMIZATIONS
     nwg-look
