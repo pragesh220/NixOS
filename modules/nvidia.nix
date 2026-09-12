@@ -1,17 +1,19 @@
-  { config, pkgs, ... }:
-  
-  {
-  # Enable graphics driver support
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true; # Required for 32-bit Wine/Steam games
-      extraPackages32 = [
-        config.hardware.nvidia.package.lib32
-      ];
-    }; 
+{ config, pkgs, ... }:
 
- # Tell X11 / Wayland to use the NVIDIA driver
-  services.xserver.videoDrivers = [ "nvidia" ];
+{
+  # Enable graphics driver support
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # Required for 32-bit Wine/Steam games
+    extraPackages32 = [
+      config.hardware.nvidia.package.lib32
+    ];
+  };
+
+  # Tell X11 / Wayland which drivers to use
+  # "modesetting" handles the Intel iGPU, "nvidia" handles the dGPU —
+  # both are required for offload mode to actually let the dGPU sleep
+  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
 
   # Configure NVIDIA driver options
   hardware.nvidia = {
@@ -27,8 +29,8 @@
         enableOffloadCmd = true;
       };
 
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:2:0:0";
+      intelBusId = "PCI:0@0:2:0";
+      nvidiaBusId = "PCI:2@0:0:0";
     };
   };
-  }
+}
