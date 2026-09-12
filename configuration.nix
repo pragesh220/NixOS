@@ -152,7 +152,7 @@
     zed-editor
 
     # Terminal Stuffs
-    kitty
+    wezterm
     eza
     starship
     mako
