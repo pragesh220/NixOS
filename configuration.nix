@@ -124,7 +124,6 @@
     git
     curl
     fastfetch
-    brave
     btop
     cava
     libreoffice
