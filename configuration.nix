@@ -136,6 +136,7 @@
     pciutils
     noctalia
     motrix-next
+    hyprpicker
 
     # Programming stuffs
     gcc 
