@@ -136,6 +136,7 @@
     noctalia
     motrix-next
     hyprpicker
+    brave
 
     # Programming stuffs
     gcc 
