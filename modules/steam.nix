@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-    programs.steam {
+    programs.steam = {
         enable =true;
 
-      }
+      };
   }
